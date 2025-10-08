@@ -32,10 +32,10 @@ class ConvNet(nn.Module):
             nn.Linear(BASIS_FUNCTIONS, 10)
         )
 
-    def forward(self, x):
+    def forward(self, x) -> torch.Tensor:
         return self.net(x)
 
-    def embed(self, x):
+    def embed(self, x) -> torch.Tensor:
         """Extract features before the final classification layer."""
         for layer_index in range(len(self.net) - 1):
             x = self.net[layer_index](x)
