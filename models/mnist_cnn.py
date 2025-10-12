@@ -6,14 +6,15 @@ BASIS_FUNCTIONS = 200
 
 class Normalize(nn.Module):
     """Normalize input images using fixed mean and std."""
+
     def __init__(self, mean=0.1307, std=0.3081):
         super().__init__()
-        self.register_buffer('mean', torch.tensor(mean))
-        self.register_buffer('std', torch.tensor(std))
+        self.register_buffer("mean", torch.tensor(mean))
+        self.register_buffer("std", torch.tensor(std))
 
     def forward(self, x):
         return (x - self.mean) / self.std
-    
+
 
 class ConvNet(nn.Module):
     def __init__(self):
@@ -29,7 +30,7 @@ class ConvNet(nn.Module):
             nn.Flatten(),
             nn.Linear(64 * 7 * 7, BASIS_FUNCTIONS),
             nn.ReLU(),
-            nn.Linear(BASIS_FUNCTIONS, 10)
+            nn.Linear(BASIS_FUNCTIONS, 10),
         )
 
     def forward(self, x) -> torch.Tensor:
