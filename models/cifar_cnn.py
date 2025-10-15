@@ -7,19 +7,24 @@ BASIS_FUNCTIONS = 200
 class Normalize(nn.Module):
     """Normalize input images using fixed mean and std."""
 
-    def __init__(self, mean=0.1307, std=0.3081):
+    def __init__(self, mean: torch.Tensor, std: torch.Tensor):
         super().__init__()
-        self.register_buffer("mean", torch.tensor(mean))
-        self.register_buffer("std", torch.tensor(std))
+        self.register_buffer("mean", mean)
+        self.register_buffer("std", std)
 
     def forward(self, x):
         return (x - self.mean) / self.std
 
 
 class CifarConvNet(nn.Module):
-    def __init__(self):
+    def __init__(
+        self,
+        mean: torch.Tensor = torch.tensor([0.4914, 0.4822, 0.4465]),
+        std: torch.Tensor = torch.tensor([0.2470, 0.2435, 0.2616]),
+    ):
         super().__init__()
         self.net = nn.Sequential(
+            Normalize(mean, std),
             nn.Conv2d(3, 32, kernel_size=3, padding=1),
             nn.ReLU(),
             nn.MaxPool2d(2),
