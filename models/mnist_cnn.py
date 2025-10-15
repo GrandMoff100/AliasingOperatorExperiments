@@ -16,7 +16,7 @@ class Normalize(nn.Module):
         return (x - self.mean) / self.std
 
 
-class ConvNet(nn.Module):
+class MnistConvNet(nn.Module):
     def __init__(self):
         super().__init__()
         self.net = nn.Sequential(
