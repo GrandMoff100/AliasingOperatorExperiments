@@ -19,8 +19,10 @@ class Normalize(nn.Module):
 class CifarConvNet(nn.Module):
     def __init__(
         self,
-        mean: torch.Tensor = torch.tensor([0.4914, 0.4822, 0.4465]).reshape(1,-1,1,1),
-        std: torch.Tensor = torch.tensor([0.2470, 0.2435, 0.2616]).reshape(1,-1,1,1),
+        mean: torch.Tensor = torch.tensor([0.4914, 0.4822, 0.4465]).reshape(
+            1, -1, 1, 1
+        ),
+        std: torch.Tensor = torch.tensor([0.2470, 0.2435, 0.2616]).reshape(1, -1, 1, 1),
     ):
         super().__init__()
         self.net = nn.Sequential(
