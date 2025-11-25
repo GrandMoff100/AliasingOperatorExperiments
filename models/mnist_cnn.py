@@ -1,8 +1,6 @@
 import torch
 import torch.nn as nn
 
-BASIS_FUNCTIONS = 200
-
 
 class Normalize(nn.Module):
     """Normalize input images using fixed mean and std."""
@@ -17,7 +15,7 @@ class Normalize(nn.Module):
 
 
 class MnistConvNet(nn.Module):
-    def __init__(self):
+    def __init__(self, basis_functions: int):
         super().__init__()
         self.net = nn.Sequential(
             Normalize(),
@@ -28,9 +26,9 @@ class MnistConvNet(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d(2),
             nn.Flatten(),
-            nn.Linear(64 * 7 * 7, BASIS_FUNCTIONS),
+            nn.Linear(64 * 7 * 7, basis_functions),
             nn.ReLU(),
-            nn.Linear(BASIS_FUNCTIONS, 10),
+            nn.Linear(basis_functions, 10),
         )
 
     def forward(self, x) -> torch.Tensor:
